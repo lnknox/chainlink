@@ -8,11 +8,17 @@
     "lint": "echo \"No linter configured for evm project\" &&  exit 0"
   },
   "dependencies": {
+    "@ensdomains/ens": "^0.1.1",
+    "link_token": "^1.0.3",
+    "openzeppelin-solidity": "^1.12.0",
+    "solidity-cborutils": "^1.0.4",
+    "cbor": "^4.1.1",
     "web3": "^1.2.0"
   },
   "devDependencies": {
-    "@types/web3": "^1.0.0",
+    "@types/cbor": "^2.0.0",
     "@types/chai": "^4.2.0",
+    "@types/web3": "^1.0.0",
     "truffle": "^5.0.25"
   },
   "files": [
