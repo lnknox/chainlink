@@ -5,7 +5,8 @@
   "scripts": {
     "build": "truffle build",
     "test": "truffle test",
-    "lint": "echo \"No linter configured for evm project\" &&  exit 0"
+    "lint": "echo \"No linter configured for evm project\" &&  exit 0",
+    "depcheck": "echo 'chainlink' && depcheck --ignore-dirs=build/contracts || true"
   },
   "dependencies": {
     "chainlink": "0.6.1",
@@ -37,6 +38,7 @@
     "@types/chai": "^4.2.0",
     "@types/web3": "^1.0.0",
     "babel-eslint": "^10.0.1",
+    "depcheck": "^0.8.3",
     "eslint": "5.12.0",
     "truffle": "^5.0.25"
   },
