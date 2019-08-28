@@ -6,15 +6,17 @@
   "scripts": {
     "test": "truffle test",
     "lint": "echo \"No linter configured for examples/twilio_sms\" && exit 0",
-    "depcheck": "echo \"@chainlink/example-twilio-sms\" && depcheck --ignore-dirs=contracts || true"
+    "depcheck": "echo \"@chainlink/example-twilio-sms\" && depcheck --ignore-dirs=contracts || true",
+    "solhint": "solhint ./contracts/**/*.sol"
   },
   "devDependencies": {
     "body-parser": "^1.18.3",
+    "depcheck": "^0.8.3",
     "express": "^4.16.2",
     "request": "^2.83.0",
+    "solhint": "^2.1.0",
     "truffle": "^5.0.25",
     "truffle-contract": "^3.0.6",
-    "twilio": "^3.11.3",
-    "depcheck": "^0.8.3"
+    "twilio": "^3.11.3"
   }
 }

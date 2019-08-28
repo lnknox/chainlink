@@ -6,10 +6,12 @@
   "scripts": {
     "test": "truffle test",
     "lint": "echo \"No linter configured for examples/echo_server\" && exit 0",
-    "depcheck": "echo \"@chainlink/example-echo-server\" && depcheck --ignore-dirs=contracts || true"
+    "depcheck": "echo \"@chainlink/example-echo-server\" && depcheck --ignore-dirs=contracts || true",
+    "solhint": "solhint ./contracts/**/*.sol"
   },
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
+    "@babel/register": "^7.0.0",
     "body-parser": "^1.18.3",
     "cbor": "^4.0.0",
     "chainlink": "^0.6.5",
@@ -17,11 +19,12 @@
     "link_token": "^1.0.3",
     "openzeppelin-solidity": "^1.12.0",
     "request-promise": "^4.2.2",
+    "solc": "0.4.25",
     "truffle": "^5.0.25",
-    "web3": "^1.0.0-beta.55",
-    "@babel/register": "^7.0.0"
+    "web3": "^1.0.0-beta.55"
   },
   "devDependencies": {
-    "depcheck": "^0.8.3"
+    "depcheck": "^0.8.3",
+    "solhint": "^2.1.0"
   }
 }
