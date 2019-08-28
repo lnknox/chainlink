@@ -49,7 +49,7 @@ contract('Coordinator', () => {
     const expectedBinaryArgs = [
       '0x',
       ...[agreedPayment, agreedExpiration, endAt].map(h.padNumTo256Bit),
-      ...agreedOracles.map(h.pad0xHexTo256Bit),
+      ...agreedOracles.map(h.padHexTo256Bit),
       h.strip0x(requestDigest)
     ]
       .join('')
@@ -66,7 +66,7 @@ contract('Coordinator', () => {
       )
 
       const result = await coordinator.getId.call(getIdArgs)
-      assert.equal(result, expectedBinaryArgsSha3)
+      assert.equal(result.toLowerCase(), expectedBinaryArgsSha3)
     })
   })
 
@@ -166,7 +166,10 @@ contract('Coordinator', () => {
 
       it('logs an event', async () => {
         const log = tx.receipt.rawLogs[2]
-        assert.equal(coordinator.address, log.address)
+        assert.equal(
+          coordinator.address.toLowerCase(),
+          log.address.toLowerCase()
+        )
 
         // If updating this test, be sure to update
         // services.ServiceAgreementExecutionLogTopic. (Which see for the
@@ -176,7 +179,7 @@ contract('Coordinator', () => {
         assert.equal(eventSignature, log.topics[0])
 
         assert.equal(agreement.id, log.topics[1])
-        const req = h.decodeRunRequest(tx.receipt.rawLogs[2])
+        const req = h.decodeRunRequest(tx.receipt.logs[2])
         assertBigNum(
           h.consumer,
           req.requester,
