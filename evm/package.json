@@ -4,9 +4,10 @@
   "license": "MIT",
   "scripts": {
     "build": "truffle build",
-    "test": "truffle test",
+    "depcheck": "echo 'chainlink' && depcheck --ignore-dirs=build/contracts || true",
     "lint": "echo \"No linter configured for evm project\" &&  exit 0",
-    "depcheck": "echo 'chainlink' && depcheck --ignore-dirs=build/contracts || true"
+    "solhint": "solhint ./contracts/**/*.sol",
+    "test": "truffle test"
   },
   "dependencies": {
     "chainlink": "0.6.1",
@@ -40,6 +41,7 @@
     "babel-eslint": "^10.0.1",
     "depcheck": "^0.8.3",
     "eslint": "5.12.0",
+    "solhint": "^2.1.0",
     "truffle": "^5.0.25"
   },
   "files": [

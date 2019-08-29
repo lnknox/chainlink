@@ -4,8 +4,9 @@
   "license": "MIT",
   "scripts": {
     "build": "truffle build",
-    "test": "truffle test",
-    "depcheck": "echo \"chainlinkv0.5\" && depcheck --ignore-dirs=build/contracts || true"
+    "depcheck": "echo \"chainlinkv0.5\" && depcheck --ignore-dirs=build/contracts || true",
+    "solhint": "solhint ./contracts/**/*.sol",
+    "test": "truffle test"
   },
   "dependencies": {
     "cbor": "^4.1.1",
@@ -21,6 +22,7 @@
     "chai": "^4.2.0",
     "depcheck": "^0.8.3",
     "openzeppelin-test-helpers": "^0.4.1",
+    "solhint": "^2.1.0",
     "truffle": "^5.0.25"
   },
   "files": [
