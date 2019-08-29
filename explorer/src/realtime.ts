@@ -62,7 +62,9 @@ export const bootstrapRealtime = async (server: http.Server) => {
         }
 
         logger.debug(
-          `websocket client successfully authenticated, new session for node ${session.chainlinkNodeId}`
+          `websocket client successfully authenticated, new session for node ${
+            session.chainlinkNodeId
+          }`
         )
         sessions.set(info.req, session)
         callback(true, 200)

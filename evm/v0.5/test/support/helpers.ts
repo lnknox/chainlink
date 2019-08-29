@@ -330,7 +330,10 @@ export const newUint8ArrayFromStr = (str: string): Uint8Array => {
 
 // newUint8ArrayFromHex returns count bytes from hex string. They are padded at
 // the end to have `count` bytes
-export const newUint8ArrayFromHex = (str: string, count: number): Uint8Array => {
+export const newUint8ArrayFromHex = (
+  str: string,
+  count: number
+): Uint8Array => {
   assert(isHex(str), `${str} is not a hexadecimal value`)
   const hexCount = 2 * count + 2
   const hexStr = Ox(str)
@@ -343,7 +346,7 @@ export const newUint8ArrayFromHex = (str: string, count: number): Uint8Array => 
 export const newUint8ArrayFromDecimal = (str: string, count: number): any => {
   assert(/^[0-9]+$/.test(str), `${str} is not a decimal value.`)
   const hexCount = 2 * count
-  const hexStr = (new BN(str, 10)).toString(16).padStart(hexCount, '0')
+  const hexStr = new BN(str, 10).toString(16).padStart(hexCount, '0')
   assert(hexStr.length <= hexCount, `${str} won't fit in ${count} bytes`)
   return Uint8Array.from(web3.utils.hexToBytes(Ox(hexStr)))
 }
@@ -369,17 +372,16 @@ export const newSignature = (str: string): any => {
  *          the right. If decimal, zero-padded on the left.
  * @todo (alx): Split this into more specific and explicit functions.
  */
-export const newHash = (str: string): Uint8Array => 
+export const newHash = (str: string): Uint8Array =>
   (/^0[xX]/.test(str) ? newUint8ArrayFromHex : newUint8ArrayFromDecimal)(
-  str,
-  32
-)
+    str,
+    32
+  )
 
 // newAddress returns a 20 byte Uint8Array for representing an address
 export const newAddress = (str: string): Uint8Array => {
   return newUint8ArrayFromHex(str, 20)
 }
-
 
 export const toBuffer = (uint8a: Uint8Array): Buffer => Buffer.from(uint8a)
 
@@ -482,7 +484,8 @@ export const personalSign = async (
   account: any,
   message: any
 ): Promise<any> => {
-  const eMsg = `Message ${message} is not a recognized representation of a ` +
+  const eMsg =
+    `Message ${message} is not a recognized representation of a ` +
     `byte array. (Can be Buffer, BigNumber, Uint8Array, 0x-prepended ` +
     `hexadecimal string.)`
   assert(isByteRepresentation(message), eMsg)
@@ -529,10 +532,10 @@ export const constructStructArgs = (
   values: any[]
 ): any[] => {
   assert.equal(fieldNames.length, values.length)
-  const args = []
-  for (let i = 0; i < fieldNames.length; i++) {
+  const args: any[] = []
+  for (let i: number = 0; i < fieldNames.length; i++) {
     args[i] = values[i]
-    args[fieldNames[i] as any] = values[i]
+    args[fieldNames[i]] = values[i]
   }
   return args
 }
@@ -591,9 +594,17 @@ export const checkServiceAgreementPresent = async (
 ): Promise<any> => {
   const sa = await coordinator.serviceAgreements.call(id)
   assertBigNum(sa[0], bigNum(payment), 'first response should be payment')
-  assertBigNum(sa[1], bigNum(expiration), 'second response should be expiration')
+  assertBigNum(
+    sa[1],
+    bigNum(expiration),
+    'second response should be expiration'
+  )
   assertBigNum(sa[2], bigNum(endAt), 'third response should be endAt date')
-  assert.equal(sa[3], toHex(requestDigest), 'fourth response should be requestDigest')
+  assert.equal(
+    sa[3],
+    toHex(requestDigest),
+    'fourth response should be requestDigest'
+  )
 
   /// / TODO:
 
@@ -706,7 +717,7 @@ export const cancelOracleRequest = async (
 type numeric = number | BN
 
 export const hexPadUint256 = (n: BN): string => n.toJSON().padStart(64, '0')
-export const encodeUint256 = (int: numeric): string => hexPadUint256(new BN(int))
-export const encodeInt256 = (int: numeric): string => hexPadUint256(
-  (new BN(int)).toTwos(256)
-)
+export const encodeUint256 = (int: numeric): string =>
+  hexPadUint256(new BN(int))
+export const encodeInt256 = (int: numeric): string =>
+  hexPadUint256(new BN(int).toTwos(256))
