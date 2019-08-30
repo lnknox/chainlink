@@ -191,6 +191,7 @@ export const functionSelectorFromAbi = (contract: TruffleContract, name: string)
       return functionSelector(method)
     }
   }
+  throw Error(`${contract.name}.${name} does not exist!`)
 }
 
 export const assertActionThrows = (action: any) =>
