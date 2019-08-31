@@ -234,10 +234,12 @@ contract Coordinator is ChainlinkRequestInterface, CoordinatorInterface {
 
     uint256[] memory responseData = new uint256[](1);
     responseData[0] = uint256(_data);
-    (bool ok,) = sA.aggregator.call(
+    (bool ok, bytes memory aggResponse) = sA.aggregator.call(
       abi.encodeWithSelector(
         sA.aggFulfillSelector, _requestId, msg.sender, responseData));
     require(ok, "aggregator.fulfill failed");
+    (bool aggSuccess, bytes memory message) = abi.decode(aggResponse, (bool, bytes));
+    require(aggSuccess, string(message));
 
     uint256 result = aggregateAndPay(_requestId, callback.amount, oracles);
     // solhint-disable-next-line avoid-low-level-calls
@@ -293,7 +295,7 @@ contract Coordinator is ChainlinkRequestInterface, CoordinatorInterface {
 
   /**
    * @notice Retrieve the Service Agreement ID for the given parameters
-      * @param _agreement contains all of the terms of the service agreement that can be verified on-chain.
+   * @param _agreement contains all of the terms of the service agreement that can be verified on-chain.
    * @return The Service Agreement ID, a keccak256 hash of the input params
    */
   function getId(ServiceAgreement memory _agreement) public pure returns (bytes32)
